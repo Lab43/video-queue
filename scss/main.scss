@@ -1,0 +1,358 @@
+@import "compass";
+//@import "_normalize";
+
+$pageWidth: 840px;
+$pageMinWidth: 400px;
+$pageMargin: 25px;
+
+$themeColor: #4b425c;
+
+$lineColor: #ddd;
+
+$errorText: #b94a48;
+$errorBackground: #f2dede;
+
+$fieldFocusColor: #51cbee;
+$fieldErrorColor: $errorText;
+
+$highlightColor: #ffba00;
+
+$speed: 0.3s;
+
+%texture {
+  background-image: inline-image("../img/texture.png");
+}
+
+
+
+
+// =====
+// reset
+// =====
+
+body, h1, h2, h3, p {
+  margin: 0;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  *zoom: 1;
+}
+
+
+
+
+// ==========
+// typography
+// ==========
+
+html,
+input {
+  color: #444;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  color: #999;
+  text-decoration: none;
+  @include transition(color $speed);
+  &:hover {
+    color: $themeColor;
+  }
+}
+
+
+
+
+// ======
+// layout
+// ======
+
+* {
+  @include box-sizing(border-box);
+}
+
+.container {
+  min-width: $pageMinWidth;
+  margin: 0 $pageMargin;
+}
+
+body {
+  background-color: #fff;
+  @extend %texture;
+}
+
+#video-form,
+#page {
+  @include box-shadow(0 0 3px #ccc);
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+
+// ======
+// header
+// ======
+
+#header {
+  background-color: $themeColor;
+  @extend %texture;
+  padding: 60px 0;
+  color: #f5f5f5;
+  @include text-shadow(0 0.03em 0 rgba(0, 0, 0, 0.4));
+  @include box-shadow(inset 0 -50px 50px -50px rgba(0, 0, 0, 0.5), inset 0 50px 50px -50px rgba(0, 0, 0, 0.5));
+  position: relative;
+  z-index: 2;
+  line-height: 1.4;
+}
+
+h1 {
+  font-family: 'Oleo Script', cursive;
+  line-height: 1em;
+  font-weight: normal;
+  white-space: nowrap;
+  text-indent: -0.09em;
+  margin-bottom: 0.15em;
+}
+
+
+
+
+// ====
+// form
+// ====
+
+#video-form {
+  background-color: #fff;
+  @extend %texture;
+  padding: 14px 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  &.fixed {
+    position: fixed;
+    top: 0;
+  }
+}
+
+label {
+  display: none;
+}
+
+input {
+  width: 100%;
+  padding: 8px 14px;
+  border: 1px solid $lineColor;
+  @include border-radius(4px);
+  outline: none;
+  @include transition(box-shadow $speed, border $speed);
+  &:focus {
+    @include box-shadow(0 0 5px $fieldFocusColor);
+    border: 1px solid $fieldFocusColor;
+  }
+}
+
+.error {
+  background-color: $errorBackground;
+  color: $errorText;
+  border: 1px solid darken($errorBackground, 10%);
+  @include border-radius(4px);
+  padding: 5px 30px 7px 15px;
+  font-size: 14px;
+  position: relative;
+  margin-top: 8px;
+  display: none;
+}
+.close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 17px;
+  height: 17px;
+  margin-left: 14px;
+  text-indent: -9999px;
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 7px;
+    width: 20px;
+    height: 4px;
+    background: $errorText;
+    //@include border-radius(3px);
+  }
+  &:hover {
+    &:before,
+    &:after {
+      background: darken($errorText, 15%);
+    }
+  }
+  &:before {
+    @include rotate(45deg);
+    margin-left: -1px;
+  }
+  &:after {
+    @include rotate(-45deg);
+  }
+}
+
+.show-error {
+  .error {
+    display: block;
+  }
+  input {
+    color: $errorText;
+    @include box-shadow(0 0 5px $fieldErrorColor);
+    border: 1px solid $fieldErrorColor;
+  }
+}
+
+
+
+
+// ======
+// videos
+// ======
+
+#page {
+  padding-top: 72px;
+  background: #fff;
+  border-bottom: 1px solid $lineColor;
+  @include transition(height $speed);
+}
+
+.video {
+  position: relative;
+  margin: 90px 0 144px;
+  @include transition(box-shadow 1s);
+  &.highlight {
+    @include box-shadow(0 0 30px 5px $highlightColor);
+  }
+}
+.remove {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 40px;
+  height: 40px;
+  margin-top: 14px;
+  text-indent: -9999px;
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 16px;;
+    width: 50px;
+    height: 8px;
+    background: #ddd;
+    //@include border-radius(3px);
+  }
+  &:hover {
+    &:before,
+    &:after {
+      background: #bbb;
+    }
+  }
+  &:before {
+    @include rotate(45deg);
+  }
+  &:after {
+    @include rotate(-45deg);
+  }
+}
+
+.welcome {
+  display: none;
+  position: relative;
+  background-color: #eee;
+  border: 2px solid $lineColor;
+  @include border-radius(4px);
+  padding: 30px 0;
+  margin: 60px 10% 80px;
+  text-align: center;
+  &:after, &:before {
+    bottom: 100%;
+    border: solid transparent;
+    content: '';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  &:after {
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #eee;
+    border-width: 30px;
+    left: 50%;
+    margin-left: -30px;
+  }
+  &:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: $lineColor;
+    border-width: 33px;
+    left: 50%;
+    margin-left: -33px;
+  }
+  h2 {
+    color: #888;
+    font-weight: normal;
+  }
+}
+.empty .welcome {
+  display: block;
+}
+
+
+
+
+// ======
+// footer
+// ======
+
+#footer {
+  padding: 25px 0 45px;
+}
+h3 {
+  color: $themeColor;
+  font-size: 22px;
+  margin-top: 18px;
+}
+
+
+
+
+// =============
+// media queries
+// =============
+
+@media only screen and (min-width: $pageWidth + $pageMargin*2) {
+  .container {
+    width: $pageWidth;
+    margin: 0 auto;
+  }
+  .left, .right {
+    width: 48%;
+  }
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+}
