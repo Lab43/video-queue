@@ -8,55 +8,82 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <!--<meta name="viewport" content="width=device-width">-->
 
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps|Oleo+Script|Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
     
     <header id="header">
       <div class="container">
         <h1>Video Queue</h1>
-        <p>Paste in the URLs for all the videos you want to share. I'll queue them up for you and do my best to remove any distractions, like related video links.</p>
+        <p>Enter the URLs for all the videos you want to watch. I'll queue them up for you and do my best to remove distractions, like related video links.</p>
       </div>
     </header>
-    <form id="video-form">
+
+    <form id="url-form">
       <div class="container">
-        <label for="field-url">Video URL</label>
-        <input type="text" name="url" id="field-url" class="input-block-level" placeholder="Enter a YouTube or Vimeo URL here">
-        <p class="error">
-          Sorry, I don't understand that URL. It should look like <strong>http://www.youtube.com/watch?v=XSGBVzeBUbk</strong> or <strong>http://vimeo.com/1084537</strong>.
-          <a href="#" class="close">Close</a>
-        </p>
-      </div>
-    </form>
-    <section id="page">
-      <div id="videos" class="container empty">
-        <div class="welcome">
-          <h2>
-            You don't have any videos in your queue yet.<br>
-            Add one using the field above.
-          </h2>
+        <label for="url">Video URL</label>
+        <div class="button-field">
+          <input type="text" name="url" id="url" placeholder="Enter a YouTube or Vimeo URL here">
+          <button type="submit">Go</button>
         </div>
       </div>
-    </section>
-    <footer class="container clearfix" id="footer">
-      <h3>Why does this exist?</h3>
-      <p>I mostly built this website with teachers in mind, but it should be useful for anyone looking for an elegant way to share a collection of videos. Many teachers like to use videos in their classrooms, but all of the extra stuff video sharing websites put on the page can be distracting to students, especially YouTube's &#8220;Related Videos&#8221; which often aren't classroom-safe. I'm hoping this website will provide teachers with a simpler and safer way to show videos in the classroom.</p>
-      <h3>What about ads?</h3>
-      <p>Unfortunately there is no way to prevent YouTube from showing ads during videos. If a video has an ad on YouTube.com, it will have an ad here too. Sorry.</p>
-      <div class="left">
-        <h3>Created by</h3>
-        <p>This website was designed and developed by <a href="http://eusonic.com">Cameron Spencer</a>. You can follow him on Twitter as <a href="http://twitter.com/eusonic">@eusonic</a>.
-      </div>
-      <div class="right">
-        <h3>Open source</h3>
-        <p>This project is <a href="#">hosted on GitHub</a>. Bug fixes and feature contributions are always welcome.</p>
-      </div>
+    </form>
 
+    <div id="videos" class="container empty">
+      <aside class="welcome">
+        <h2>Hello!</h2>
+        <p>There are no videos in your queue.</p>
+      </aside>
+    </div>
 
+    <aside id="about">
+      <div class="container">
+        <div class="left">
+          <section>
+            <h3>About</h3>
+            <p>I built this website for teachers, but it should be useful to anyone wanting a simple way to share a collection of videos. Many teachers show videos in their classrooms, but websites like YouTube add links to &ldquo;related videos&rdquo; and other clutter that can be distracting and often isn’t appropriate for a classroom. This website strips away as many of these distractions as possible, providing a cleaner and safer way to show videos.</p>
+          </section>
+          <section>
+            <h3>Why do I still see ads?</h3>
+            <p>Unfortunately, it's impossible prevent YouTube from showing ads in videos. I don't make any money from these ads, and I have no plans to put additional advertising on this website.</p>
+          </section>
+        </div><!-- prevent inline-block gaps
+     --><section class="right feedback">
+          <h3>Feedback</h3>
+          <!-- wufoo powered form -->
+          <form id="form3" name="form3" autocomplete="off" enctype="multipart/form-data" method="post" novalidate action="https://eusonic.wufoo.com/forms/q7x2x3/#public">
+            <label id="title3" for="Field3">Your Name</label>
+            <input id="Field3" name="Field3" type="text" value="" maxlength="255" tabindex="1" onkeyup="" required placeholder="Your Name"/>
+            <label id="title4" for="Field4">Your Email</label>
+            <input id="Field4" name="Field4" type="email" spellcheck="false" value="" maxlength="255" tabindex="2" required placeholder="Your Email"/> 
+            <label id="title5" for="Field5">Message</label>
+            <textarea id="Field5" name="Field5" spellcheck="true" rows="5" cols="50" tabindex="3" onkeyup="" required placeholder="Message"></textarea>
+            <button id="saveForm" name="saveForm" type="submit">Submit</button>
+            <label for="comment">Do Not Fill This Out</label>
+            <textarea name="comment" id="comment" rows="1" cols="1"></textarea>
+            <input type="hidden" id="idstamp" name="idstamp" value="OmYLBraBmRbk9Jqj2IX5CfMrPyoGNZZR+9lSsNw2XQQ=" />
+          </form>
+        </section>
+      </div>
+    </aside>
+
+    <footer id="footer">
+      <div class="container">
+        <section class="left">
+          <h3>About Me</h3>
+          <p>This website was created by <a href="http://eusonic.com">Cameron Spencer</a>. I'm a designer and web developer living in San Francisco. Follow me on Twitter as <a href="http://twitter.com/eusonic">@eusonic</a>.</p>
+        </section><!-- prevent inline-block gaps
+     --><section class="right">
+          <h3>Open Source</h3>
+          <p>This project is open source and <a href="https://github.com/eusonic/video-queue">hosted on GitHub</a>. Bug fixes and feature contributions are always welcome.</p>
+        </section>
+        <small>
+          <p>This website uses <a href="http://html5boilerplate.com">HTML5 Boilerplate</a>, <a href="http://fittextjs.com">FitText.js</a>, <a href="http://fitvidsjs.com">FitVids.js</a>, and <a href="http://compass-style.org">Compass</a>. It was designed in <a href="http://www.bohemiancoding.com/sketch">Sketch</a>, coded in <a href="http://www.sublimetext.com/2">Sublime Text 2</a>, and compiled with <a href="http://incident57.com/codekit">CodeKit</a>. Typefaces are <a href="http://cargocollective.com/soytutype/Oleo-Script">Oleo Script</a> and <a href="http://opensans.com">Open Sans</a>, served by <a href="http://www.google.com/webfonts">Google Web Fonts</a>. Header pattern is <a href="http://subtlepatterns.com/debut-light">Debut Light</a> by <a href="http://lukemcdonald.com">Luke McDonald</a>.</p>
+        </small>
+      </div>
     </footer>
 
 

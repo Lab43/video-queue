@@ -7,15 +7,15 @@ var videoWidth = 840
 
 
   // add video
-  $('#video-form').on('submit', function (e) {
+  $('#url-form').on('submit', function (e) {
     e.preventDefault();
-    hideError();
-    var url = $('#field-url').val();
+    removeError();
+    var url = $('#url').val();
     var match = url.match(/http:\/\/(?:www\.)?(vimeo|youtube)\.com\/(?:watch\?v=)?(.*?)(?:\z|$|&)/);
     if (!match) return urlError();
 
     // reset url input field
-    $('#field-url').val('').blur();
+    $('#url').val('').blur();
 
     // add video
     $('#videos')
@@ -30,7 +30,8 @@ var videoWidth = 840
     },1200);
 
     // scroll to the new video
-    $.scrollTo('.video:last', 600);
+    var offset = $('#url-form').outerHeight() * -1.75;
+    $.scrollTo('.video:last', 600, {offset: offset});
 
     updateHash();
   });
@@ -50,7 +51,7 @@ var videoWidth = 840
   // close error
   $(document).on('click', 'a.close', function (e) {
     e.preventDefault();
-    hideError();
+    removeError();
   });
 
 
@@ -63,14 +64,14 @@ var videoWidth = 840
 
 
     // size text based on page width
-    $('h1').fitText(0.48);
-    $('#header p').fitText(3.5, {minFontSize: '16px'});
-    $('h2').fitText(3, {minFontSize: '14px'});
-    $('input, button').fitText(4, {minFontSize: '16px'});
+    $('h1').fitText(0.47);
+    $('#header p').fitText(3.5, {minFontSize: '12px'});
+    //$('h2').fitText(3, {minFontSize: '14px'});
+    //$('input, button').fitText(4, {minFontSize: '16px'});
 
 
     // fix video form to top depending on scroll position;
-    var fixedTop = $("#video-form"), pos = fixedTop.offset();
+    var fixedTop = $("#url-form"), pos = fixedTop.offset();
     $(window).scroll(function(e) {
       if($(this).scrollTop() > pos.top) { 
         $(fixedTop).addClass('fixed');
@@ -81,19 +82,26 @@ var videoWidth = 840
 
     // if there is a hash, load videos
     var hash = window.location.hash.substring(1).split('/');
-    if (hash.length) {
-      $.each(hash, function (i, value) {
-        if (!value) return;
-        value = value.split('_');
-        var source = value[0] === 'v' ? 'vimeo' : 'youtube';
-        $('#videos')
-          .append( buildVideo(source, value[1]) )
-          .removeClass('empty')
-        ;
-      });
+    // depending on placement of slashes in hash, the hash array could have several empty values
+    var validHash = false;
+    $.each(hash, function (i, value) {
+      if (!value) return;
+      validHash = true;
+      value = value.split('_');
+      var source = value[0] === 'v' ? 'vimeo' : 'youtube';
+      $('#videos')
+        .append( buildVideo(source, value[1]) )
+        .removeClass('empty')
+      ;
+    });
+    if (validHash) {
       $('#videos').fitVids();
       $('.video').removeClass('highlight');
-      $.scrollTo('#video-form');
+      // scroll to the first video
+      var offset = $('#url-form').outerHeight() * -1.75;
+      $.scrollTo('.video:first', 0, {offset: offset});
+    } else {
+      $('#url').focus();
     }
 
   });
@@ -120,7 +128,7 @@ var videoWidth = 840
         video.attr('data-id', 'y_' + videoId);
         embed += '<iframe id="ytplayer" type="text/html" width="'+videoWidth+'" height="'+videoHeight+'" src="http://www.youtube.com/embed/';
         embed += videoId;
-        embed += '?rel=0&showinfo=0" frameborder="0"/>'
+        embed += '?rel=0&showinfo=0&autohide=1" frameborder="0"/>'
         break;
     }
     video.append(embed);
@@ -130,12 +138,15 @@ var videoWidth = 840
 
   // display error message for bad url
   function urlError() {
-    $('#video-form').addClass('show-error');
+    removeError();
+    $('#url').addClass('invalid');
+    $('#url-form .container').append('<div class="error">Sorry, I don&apos;t understand that URL. Video Queue only supports YouTube and Vimeo. URLs should look like <strong>http://www.youtube.com/watch?v=XSGBVzeBUbk</strong> or <strong>http://vimeo.com/1084537</strong>.<a href="#" class="close">Close</a></div>');
   }
 
   // hide error message
-  function hideError() {
-    $('#video-form').removeClass('show-error');
+  function removeError() {
+    $('#url-form .error').remove();
+    $('#url').removeClass('invalid');
   }
 
   // get video ids and add them to the hash

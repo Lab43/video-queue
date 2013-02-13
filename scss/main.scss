@@ -1,26 +1,62 @@
 @import "compass";
-//@import "_normalize";
 
-$pageWidth: 840px;
-$pageMinWidth: 400px;
-$pageMargin: 25px;
 
-$themeColor: #4b425c;
 
-$lineColor: #ddd;
 
+// =========
+// variables
+// =========
+
+$textColor: #444;
+
+$linkColor: #dcc154;
+
+$themeColor: #554b6b;
+$lightGray: #e8e8e8;
+$gray: #bbb;
+$borderColor: #ccc;
+
+//$lineColor: #ddd;
 $errorText: #b94a48;
 $errorBackground: #f2dede;
-
 $fieldFocusColor: #51cbee;
 $fieldErrorColor: $errorText;
-
 $highlightColor: #ffba00;
-
 $speed: 0.3s;
 
-%texture {
-  background-image: inline-image("../img/texture.png");
+
+
+
+// =======
+// helpers
+// =======
+
+%themeArea {
+  @include background(inline-image("../img/texture.png"), radial-gradient(lighten($themeColor, 10%), darken($themeColor, 25%) 150%));
+  @include text-shadow(0 0.13em 0 rgba(0, 0, 0, 0.3));
+  @include box-shadow(inset 0 -25px 25px -25px rgba(0, 0, 0, 0.25), inset 0 25px 25px -25px rgba(0, 0, 0, 0.25));
+  &, h3 {
+    color: $lightGray;
+  }
+}
+
+%grayArea {
+  background: $lightGray;
+  @include box-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+%hide {
+  display: none;
+}
+
+// visually hide something without preventing
+// it from being read by screen readers
+%visuallyHide { 
+  position: absolute; 
+  overflow: hidden; 
+  clip: rect(0 0 0 0); 
+  height: 1px; width: 1px; 
+  margin: -1px; padding: 0; border: 0; 
 }
 
 
@@ -30,20 +66,8 @@ $speed: 0.3s;
 // reset
 // =====
 
-body, h1, h2, h3, p {
+body, h1, h2, h3, p, button {
   margin: 0;
-}
-
-.clearfix:before,
-.clearfix:after {
-  content: " "; /* 1 */
-  display: table; /* 2 */
-}
-.clearfix:after {
-  clear: both;
-}
-.clearfix {
-  *zoom: 1;
 }
 
 
@@ -53,23 +77,140 @@ body, h1, h2, h3, p {
 // typography
 // ==========
 
-html,
-input {
-  color: #444;
+body,
+input,
+button,
+textarea {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: $textColor;
+  @media (min-width: 400px)  { font-size: 14px; }
+  @media (min-width: 1150px) { font-size: 16px; }
+  @media (min-width: 1300px) { font-size: 18px; }
 }
 
-body {
-  font-size: 16px;
-  line-height: 1.6;
-  font-family: 'Open Sans', sans-serif;
+h1, h2 {
+  font-family: 'Oleo Script', cursive;
+  font-weight: normal;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 6em;
+}
+
+h3 {
+  color: $themeColor;
+  font-size: 1.5em;
 }
 
 a {
-  color: #999;
+  color: $linkColor;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   text-decoration: none;
-  @include transition(color $speed);
+  @include transition(border $speed);
   &:hover {
-    color: $themeColor;
+    border-bottom: 1px solid $linkColor;
+  }
+}
+
+
+
+
+// =====
+// forms
+// =====
+
+button,
+input[type=text],
+input[type=email],
+textarea {
+  border: 1px solid $borderColor;
+  @include border-radius(0.2em);
+  width: 100%;
+  padding: 0.5em;
+  @include box-shadow(inset 0 1px 0 #eee);
+  background: #fff;
+  @include transition(box-shadow $speed, border $speed);
+  outline: none;
+  &:focus {
+    @include box-shadow(0 0 5px $fieldFocusColor);
+    border: 1px solid $fieldFocusColor;
+  }
+  &.invalid {
+    color: $errorText;
+    @include box-shadow(0 0 5px $fieldErrorColor);
+    border: 1px solid $fieldErrorColor;
+  }
+}
+
+input[type=text],
+input[type=email] {
+  height: 2em;
+}
+
+button {
+  width: auto;
+  font-weight: bold;
+  text-transform: uppercase;
+  @include text-shadow(0 1px 0 #fff);
+  color: #666;
+  background: $lightGray;
+  padding: 0 1em;
+  @include box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.6));
+  cursor: pointer;
+  height: 2em;
+  &:hover {
+    background: darken($lightGray, 3%);
+  }
+  &:active {
+    background: darken($lightGray, 7%);
+  }
+}
+
+.error {
+  background-color: $errorBackground;
+  color: $errorText;
+  border: 1px solid darken($errorBackground, 15%);
+  @include box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.6));
+  @include border-radius(0.2em);
+  padding: 0.5em 2em 0.5em 1em;
+  position: relative;
+  margin-top: 0.75em;
+}
+
+.close {
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  width: 1.2em;
+  height: 1.2em;
+  text-indent: -9999px;
+  border: none;
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 1.25em;
+    height: 0.25em;
+    background: $errorText;
+    @include transition(background-color $speed);
+  }
+  &:hover {
+    border: none;
+    &:before,
+    &:after {
+      background: darken($errorText, 15%);
+    }
+  }
+  &:before {
+    @include rotate(45deg);
+  }
+  &:after {
+    @include rotate(-45deg);
   }
 }
 
@@ -85,19 +226,7 @@ a {
 }
 
 .container {
-  min-width: $pageMinWidth;
-  margin: 0 $pageMargin;
-}
-
-body {
-  background-color: #fff;
-  @extend %texture;
-}
-
-#video-form,
-#page {
-  @include box-shadow(0 0 3px #ccc);
-  border-bottom: 1px solid #ccc;
+  margin: 0 5%;
 }
 
 
@@ -108,40 +237,39 @@ body {
 // ======
 
 #header {
-  background-color: $themeColor;
-  @extend %texture;
-  padding: 60px 0;
-  color: #f5f5f5;
-  @include text-shadow(0 0.03em 0 rgba(0, 0, 0, 0.4));
-  @include box-shadow(inset 0 -50px 50px -50px rgba(0, 0, 0, 0.5), inset 0 50px 50px -50px rgba(0, 0, 0, 0.5));
-  position: relative;
-  z-index: 2;
-  line-height: 1.4;
+  @extend %themeArea;
+  padding: 3em 0;
 }
 
 h1 {
-  font-family: 'Oleo Script', cursive;
-  line-height: 1em;
-  font-weight: normal;
   white-space: nowrap;
-  text-indent: -0.09em;
-  margin-bottom: 0.15em;
+  font-size: 10em;
+  text-indent: -0.15em;
+  &:first-letter {
+    font-family: 'Oleo Script Swash Caps', cursive;
+  }
+}
+
+#header p {
+  font-size: 1.5em;
+  margin-top: 1em;
 }
 
 
 
 
-// ====
-// form
-// ====
+// ========
+// url form
+// ========
 
-#video-form {
-  background-color: #fff;
-  @extend %texture;
-  padding: 14px 0;
+#url-form {
+  @extend %grayArea;
+  label {
+    @extend %visuallyHide;
+  }
+  padding: 0.75em 0;
   position: absolute;
-  left: 0;
-  right: 0;
+  width: 100%;
   z-index: 1;
   &.fixed {
     position: fixed;
@@ -149,76 +277,17 @@ h1 {
   }
 }
 
-label {
-  display: none;
+#url,
+#url-form button {
+  font-size: 1.5em;
 }
 
-input {
-  width: 100%;
-  padding: 8px 14px;
-  border: 1px solid $lineColor;
-  @include border-radius(4px);
-  outline: none;
-  @include transition(box-shadow $speed, border $speed);
-  &:focus {
-    @include box-shadow(0 0 5px $fieldFocusColor);
-    border: 1px solid $fieldFocusColor;
-  }
-}
-
-.error {
-  background-color: $errorBackground;
-  color: $errorText;
-  border: 1px solid darken($errorBackground, 10%);
-  @include border-radius(4px);
-  padding: 5px 30px 7px 15px;
-  font-size: 14px;
+.button-field {
   position: relative;
-  margin-top: 8px;
-  display: none;
-}
-.close {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  width: 17px;
-  height: 17px;
-  margin-left: 14px;
-  text-indent: -9999px;
-  &:before,
-  &:after {
-    content: '';
+  button {
     position: absolute;
-    left: -1px;
-    top: 7px;
-    width: 20px;
-    height: 4px;
-    background: $errorText;
-    //@include border-radius(3px);
-  }
-  &:hover {
-    &:before,
-    &:after {
-      background: darken($errorText, 15%);
-    }
-  }
-  &:before {
-    @include rotate(45deg);
-    margin-left: -1px;
-  }
-  &:after {
-    @include rotate(-45deg);
-  }
-}
-
-.show-error {
-  .error {
-    display: block;
-  }
-  input {
-    color: $errorText;
-    @include box-shadow(0 0 5px $fieldErrorColor);
-    border: 1px solid $fieldErrorColor;
+    right: 0;
+    top: 0;
   }
 }
 
@@ -229,44 +298,45 @@ input {
 // videos
 // ======
 
-#page {
-  padding-top: 72px;
-  background: #fff;
-  border-bottom: 1px solid $lineColor;
-  @include transition(height $speed);
+#videos {
+  padding-top: 4.5em; // height of url form 
 }
 
-.video {
+.video,
+.welcome {
   position: relative;
-  margin: 90px 0 144px;
+  margin: 6em 0;
   @include transition(box-shadow 1s);
   &.highlight {
-    @include box-shadow(0 0 30px 5px $highlightColor);
+    @include box-shadow(0 0 3em 0.5em $highlightColor);
   }
 }
+
 .remove {
   position: absolute;
   right: 0;
   top: 100%;
-  width: 40px;
-  height: 40px;
-  margin-top: 14px;
+  margin-top: 1em;
+  width: 2.5em;
+  height: 2.5em;
   text-indent: -9999px;
+  border: none;
   &:before,
   &:after {
     content: '';
     position: absolute;
-    left: -5px;
-    top: 16px;;
-    width: 50px;
-    height: 8px;
-    background: #ddd;
-    //@include border-radius(3px);
+    left: -0.3em;
+    top: 1em;
+    width: 3em;
+    height: 0.5em;
+    background: $lightGray;
+    @include transition(background-color $speed);
   }
   &:hover {
+    border: none;
     &:before,
     &:after {
-      background: #bbb;
+      background: darken($lightGray, 10%);
     }
   }
   &:before {
@@ -279,41 +349,16 @@ input {
 
 .welcome {
   display: none;
-  position: relative;
-  background-color: #eee;
-  border: 2px solid $lineColor;
-  @include border-radius(4px);
-  padding: 30px 0;
-  margin: 60px 10% 80px;
   text-align: center;
-  &:after, &:before {
-    bottom: 100%;
-    border: solid transparent;
-    content: '';
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-  }
-  &:after {
-    border-color: rgba(0, 0, 0, 0);
-    border-bottom-color: #eee;
-    border-width: 30px;
-    left: 50%;
-    margin-left: -30px;
-  }
-  &:before {
-    border-color: rgba(0, 0, 0, 0);
-    border-bottom-color: $lineColor;
-    border-width: 33px;
-    left: 50%;
-    margin-left: -33px;
-  }
+  color: #ccc;
   h2 {
-    color: #888;
-    font-weight: normal;
+    color: rgba(0, 0, 0, 0.13);
+    @include text-shadow(0px 2px 2px #fff, 0 0 0 rgba(0, 0, 0, 0.08), 0px 2px 2px #fff);
+    text-indent: -0.1em;
   }
+  font-weight: bold;
 }
+
 .empty .welcome {
   display: block;
 }
@@ -321,17 +366,55 @@ input {
 
 
 
-// ======
-// footer
-// ======
+// ==============
+// about & footer
+// ==============
+
+#about,
+#footer {
+  padding: 0.5em 0 1em;
+}
+
+#about {
+  @extend %grayArea;
+}
 
 #footer {
-  padding: 25px 0 45px;
+  @extend %themeArea;
 }
-h3 {
-  color: $themeColor;
-  font-size: 22px;
-  margin-top: 18px;
+
+section {
+  margin: 1.5em 0;
+}
+
+small {
+  padding: 1.5em 0;
+  display: block;
+  font-size: 0.85em;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  //@include text-shadow(none);
+}
+
+.feedback {
+  label {
+    @extend %visuallyHide;
+  }
+  input,
+  textarea {
+    margin: 0.25em 0 0.75em;
+  }
+  form {
+    text-align: right;
+  }
+  // fix weird spacing on inline-block button
+  button {
+    margin-top: -0.25em;
+  }
+}
+
+// hidden wufoo form field
+#comment {
+  @extend %hide;
 }
 
 
@@ -341,18 +424,58 @@ h3 {
 // media queries
 // =============
 
-@media only screen and (min-width: $pageWidth + $pageMargin*2) {
+@media (min-width: 760px) {
+
+  // increase outer gutters
   .container {
-    width: $pageWidth;
-    margin: 0 auto;
+    margin: 0 13.75%;
   }
-  .left, .right {
-    width: 48%;
+
+  // rudimentary grid
+  .left,
+  .right {
+    display: inline-block;
+    vertical-align: top;
   }
   .left {
-    float: left;
+    margin-right: 4%;
   }
-  .right {
-    float: right;
+  #about {
+    .left {
+      width: 65%;
+    }
+    .right {
+      width: 31%;
+    }
+  }
+  #footer {
+    .left,
+    .right {
+      width: 48%;
+    }
+  }
+
+  // increse vertical space between videos to balance wider outer gutters
+  .video {
+    margin: 7.5em 0;
+  }
+
+  // move remove buttons to right of vidoes
+  .remove {
+    right: auto;
+    left: 100%;
+    top: 0;
+    margin-top: 0;
+    margin-left: 1.5em;
+  }
+}
+
+
+@media (min-width: 1400px) {
+
+  // prevent page from getting any wider
+  .container {
+    width: 1000px;
+    margin: 0 auto;
   }
 }
