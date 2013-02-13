@@ -302,8 +302,7 @@ h1 {
   padding-top: 4.5em; // height of url form 
 }
 
-.video,
-.welcome {
+.video {
   position: relative;
   margin: 6em 0;
   @include transition(box-shadow 1s);
@@ -349,6 +348,7 @@ h1 {
 
 .welcome {
   display: none;
+  margin: 8em 0;
   text-align: center;
   color: #ddd;
   h2 {
