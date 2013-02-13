@@ -145,6 +145,17 @@ textarea {
   }
 }
 
+// https://github.com/michaelsacca/Compass-Placeholder-Text-Mixin
+@mixin input-placeholder($color) {
+  &.placeholder { color: $color; }
+  &:-moz-placeholder  { color: $color; }
+  &::-webkit-input-placeholder { color: $color; } 
+}
+input,
+textarea {
+  @include input-placeholder(#ccc);
+}
+
 input[type=text],
 input[type=email] {
   height: 2em;
