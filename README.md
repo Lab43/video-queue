@@ -12,5 +12,5 @@ Share a collection of YouTube and Vimeo videos without the usual clutter and dis
 * add feedback/animation when video is deleted, so it's clearer what just happend
 * Change placeholder text to "Enter another YouTube or Vimeo URL here" after first video has been added
 * license information
-* do cross browser testing, remove conditional html classes if they aren't needed
+* better support (or more graceful degradation) in ie7 and ie8
 * refactor js, there is some repitition
