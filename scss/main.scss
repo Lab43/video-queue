@@ -130,7 +130,7 @@ textarea {
   border: 1px solid $borderColor;
   @include border-radius(0.2em);
   width: 100%;
-  padding: 0.5em;
+  padding: 0 0.5em;
   @include box-shadow(inset 0 1px 0 #eee);
   background: #fff;
   @include transition(box-shadow $speed, border $speed);
@@ -144,6 +144,10 @@ textarea {
     @include box-shadow(0 0 5px $fieldErrorColor);
     border: 1px solid $fieldErrorColor;
   }
+}
+
+textarea {
+  padding: 5px;
 }
 
 // https://github.com/michaelsacca/Compass-Placeholder-Text-Mixin
