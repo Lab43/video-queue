@@ -1,6 +1,9 @@
 # Video Queue
 
+Share a collection of YouTube and Vimeo videos without the usual clutter and distractions. Designed for teachers, but great for anyone wanting a cleaner way to show videos.
+
 [http://videoqueue.tv](http://videoqueue.tv)
+
 
 ## To Do:
 * debounce window scroll event
