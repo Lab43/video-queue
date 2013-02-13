@@ -1,3 +1,7 @@
+# Video Queue
+
+[http://videoqueue.tv](http://videoqueue.tv)
+
 ## To Do:
 * debounce window scroll event
 * prevent the same video from being added multiple times
@@ -7,6 +11,3 @@
 * license information
 * do cross browser testing, remove conditional html classes if they aren't needed
 * refactor js, there is some repitition
-
-## Bugs:
-* If you resize the window, the url form will switch to fixed at the wrong scroll point
