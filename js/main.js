@@ -21,9 +21,9 @@ var videoWidth = 840
     // add video
     $('#videos')
       .append( buildVideo(videoCode.source, videoCode.code) )
+      .fitVids()
       .removeClass('empty')
     ;
-    $(':not(.lt-ie9) #videos').fitVids()
 
     // remove highlighting
     setTimeout(function(){
@@ -65,8 +65,8 @@ var videoWidth = 840
 
 
     // size text based on page width
-    $(':not(.lt-ie9) h1').fitText(0.47);
-    $(':not(.lt-ie9) #header p').fitText(3.5, {minFontSize: '12px'});
+    $('h1').fitText(0.47);
+    $('#header p').fitText(3.5, {minFontSize: '12px'});
 
     // fix video form to top depending on scroll position;
     var fixedTop = $("#url-form"), pos = fixedTop.offset();
@@ -93,8 +93,8 @@ var videoWidth = 840
       ;
     });
     if (validHash) {
-      $(':not(.lt-ie9) #videos').fitVids();
-      $(':not(.lt-ie9) .video').removeClass('highlight');
+      $('#videos').fitVids();
+      $('.video').removeClass('highlight');
       // scroll to the first video
       var offset = $('#url-form').outerHeight() * -1.75;
       $.scrollTo('.video:first', 0, {offset: offset});
