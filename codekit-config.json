@@ -122,17 +122,6 @@
       "initialSize" : 1189,
       "fileType" : 8192
     },
-    "\/img-source\/mockup.sketch\/QuickLook\/Preview.png" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/img-source\/mockup.sketch\/QuickLook\/Preview.png",
-      "processed" : 0,
-      "outputAbbreviatedPath" : "\/img-source\/mockup.sketch\/QuickLook\/Preview.png",
-      "initialSize" : 1141251,
-      "fileType" : 8192
-    },
     "\/js\/vendor\/jquery-1.9.0.min.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -143,6 +132,17 @@
       "syntaxCheckerStyle" : 1,
       "outputAbbreviatedPath" : "\/js\/vendor\/jquery-1.9.0.min.min.js",
       "fileType" : 64
+    },
+    "\/img-source\/mockup.sketch\/QuickLook\/Preview.png" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/img-source\/mockup.sketch\/QuickLook\/Preview.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/img-source\/mockup.sketch\/QuickLook\/Preview.png",
+      "initialSize" : 1141251,
+      "fileType" : 8192
     },
     "\/img-source\/mockup.sketch\/QuickLook\/Thumbnail.png" : {
       "ignoreWasSetByUser" : 0,
