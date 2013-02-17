@@ -11,15 +11,16 @@ var videoWidth = 840
     e.preventDefault();
     removeError();
     var url = $('#url').val();
-    var match = url.match(/http:\/\/(?:www\.)?(vimeo|youtube)\.com\/(?:watch\?v=)?(.*?)(?:\z|$|&)/);
-    if (!match) return urlError();
+    var videoCode = parseUrl(url);
+
+    if (!videoCode) return urlError();
 
     // reset url input field
     $('#url').val('').blur();
 
     // add video
     $('#videos')
-      .append( buildVideo(match[1], match[2]) )
+      .append( buildVideo(videoCode.source, videoCode.code) )
       .fitVids()
       .removeClass('empty')
     ;
@@ -87,7 +88,7 @@ var videoWidth = 840
     $.each(hash, function (i, value) {
       if (!value) return;
       validHash = true;
-      value = value.split('_');
+      value = value.split(':');
       var source = value[0] === 'v' ? 'vimeo' : 'youtube';
       $('#videos')
         .append( buildVideo(source, value[1]) )
@@ -119,13 +120,13 @@ var videoWidth = 840
     var embed = '';
     switch (source) {
       case 'vimeo':
-        video.attr('data-id', 'v_' + videoId);
+        video.attr('data-id', 'v:' + videoId);
         embed += '<iframe src="http://player.vimeo.com/video/'
         embed += videoId;
         embed += '?title=0&byline=0&portrait=0" width="'+videoWidth+'" height="'+videoHeight+'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
         break;
       case 'youtube':
-        video.attr('data-id', 'y_' + videoId);
+        video.attr('data-id', 'y:' + videoId);
         embed += '<iframe id="ytplayer" type="text/html" width="'+videoWidth+'" height="'+videoHeight+'" src="http://www.youtube.com/embed/';
         embed += videoId;
         embed += '?rel=0&showinfo=0&autohide=1" frameborder="0"/>'
@@ -156,6 +157,27 @@ var videoWidth = 840
       hash.push( $(elem).attr('data-id') );
     });
     window.location.hash = hash.join('/');
+  }
+
+
+  function parseUrl(url) {
+
+    // check if it's a youtube url
+    var match = url.match(/.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/);
+    if (match) return {
+      source: 'youtube',
+      code: match[1]
+    }
+
+    // check if it's a vimeo url
+    match = url.match(/http:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/);
+    if (match) return {
+      source: 'vimeo',
+      code: match[2]
+    }
+    
+    // url not understood    
+    return false;
   }
 
 

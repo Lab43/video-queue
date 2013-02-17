@@ -87,8 +87,7 @@ textarea {
   line-height: 1.5;
   color: $textColor;
   @media (min-width: 400px)  { font-size: 14px; }
-  @media (min-width: 1150px) { font-size: 16px; }
-  @media (min-width: 1300px) { font-size: 18px; }
+  @media (min-width: 1100px) { font-size: 16px; }
 }
 
 h1, h2 {
@@ -194,6 +193,14 @@ button {
   padding: 0.5em 2em 0.5em 1em;
   position: relative;
   margin-top: 0.75em;
+  a {
+    color: $errorText;
+    border-bottom: none;
+    text-decoration: underline;
+    &:hover {
+      color: darken($errorText, 15%);
+    }
+  }
 }
 
 .close {
@@ -487,11 +494,11 @@ small {
 }
 
 
-@media (min-width: 1400px) {
+@media (min-width: 1240px) {
 
   // prevent page from getting any wider
   .container {
-    width: 1000px;
+    width: 920px;
     margin: 0 auto;
   }
 }
